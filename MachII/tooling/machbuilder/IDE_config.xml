@@ -1,0 +1,61 @@
+<application> 
+    <name>MachBuilder Extension</name> 
+    <author>Team Mach II</author> 
+    <version>1.0</version> 
+    <email>team@mach-ii.com</email> 
+    <description>
+    	Handy tools to help you build Mach II applications with ColdFusion Builder. 
+    	Includes the ability to create a new Mach II app using a configurable application skeleton.
+    	This extension also integrates with the Mach II dashboard to provide handy access to all your Mach II components as well
+    	as allowing you to reload them.
+    </description> 
+    <!-- <license>license.html</license>  -->
+	
+	<!--
+		Ideas:
+		v1.0
+		Kurt
+			1. View that parses the xml file
+			2. Some update notification functionality, later add auto update, Brian R might have a library.
+			
+		Brian
+			1. Project setup wizard with skeleton, wizard for including the CS property, turning on the dashboard adding logging, ect
+			
+		TBD
+			View for the dashboard
+		
+		Add Various Commands to the xml config
+		Open view-pages, listeners, call-method beans, plugins, filters, properties, includes, 
+			and modules by right clicking (bolt feature request)
+		Wizard to create new listener, filter, plugin, or view and ask to add to m2 config
+		Wizard for adding some of the new M2 properties (caching, logging, environment, coldspring, ect)
+		
+		https://docs.google.com/document/d/1cWNAQHNWnAhVvaORrrNPspCU8v_SXZv0GIQkxtrcrXk/edit?hl=en#
+	-->
+	
+	<menucontributions>
+	
+		<contribution target="projectview" >
+			<menu name="Mach Builder">
+				<filters> 
+					<filter type="file" pattern="*" /> 
+				</filters>
+	    		<action name="Display Dashboard" handlerid="dashboard" showResponse="true" />
+			</menu>
+			<menu name="Mach Builder">
+				<filters>
+					<filter type="folder" />
+					<filter type="project" />
+				</filters>
+				<action name="Generate Mach-II App Skeleton" handlerid="skeletonConfig" showResponse="true" />
+			</menu>
+		</contribution>
+		
+	</menucontributions>
+	
+	<handlers>
+		<handler id="skeletonConfig" type="CFM" filename="skeletonConfig.cfm" />
+		<handler id="dashboard" type="CFM" filename="dashboard.cfm" />
+	</handlers>
+	
+</application>

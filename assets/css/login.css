@@ -1,0 +1,77 @@
+@charset "ISO-8859-1";
+			body 
+			{
+				margin:0;
+				padding:0;
+			}
+			.error{
+				color:#ff0000;
+			}
+			.yui-skin-sam .yui-panel .bd{
+				background-color:#ffffff !important;
+				background: url(/assets/img/bg_pattern.png) #fff;
+			}
+			.form input {
+				font-family: 'Cabin Sketch',cursive;
+				outline: 0;
+				background: #f2f2f2;
+				width: 100%;
+				border: 0;
+				margin: 0 0 15px;
+				padding: 20px !important;
+				box-sizing: border-box;
+				font-size: 14px;
+			}
+			.form .submit:hover, .form .submit:active, .form .submit:focus 
+			{
+				background: #43A047;
+			}
+			.form .submit
+			{
+				padding:10px !important;
+				background : #4CAF50;
+				font-size: 20px;
+				font-family: 'Cabin Sketch',cursive;
+				color : #ffffff ;
+			}
+			.message{
+				font-size:15px !important;
+			}
+			.message a{
+				color : #8DC26F !important;
+			}
+			
+			.yui-skin-sam .yui-panel .hd{
+				background : #f2f2f2 !important;
+				padding : 10px !important;
+			}
+
+
+			/* Default/unfocused Panel style */
+			.yui-skin-sam div[role=panel].yui-panel .hd {
+				background: #F2F2F2;
+			}
+
+			/* Focused Panel style */	
+			.yui-skin-sam .yui-panel-container.focused div[role=panel].yui-panel .hd {
+				background: url(http://yui.yahooapis.com/2.5.2/build/assets/skins/sam/sprite.png) repeat-x 0 -200px;
+			}
+			
+			/*
+				The Container ARIA Plugin removes the "href" attribute from the <A> used to create the 
+				close button for a Panel, resulting in the focus outline no longer be rendered in 
+				Gecko-based browsers when the <A> element is focused.  For this reason, it is necessary to 
+				restore the focus outline for the <A>.
+			*/	
+			a.container-close[role=button]:focus {
+				outline: dotted 1px #000;
+			}
+
+			/*
+				Necessary to explicitly set the text-align property so the content of the Panels 
+				is aligned properly when viewed inside the YUI Examples chrome.
+			*/
+			#panel-2,
+			#panel-3 {
+				text-align: left;
+			}
