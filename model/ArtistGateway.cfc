@@ -7,16 +7,19 @@
   --->
 <cfcomponent accessors="true" output="false" hint="defines gateway functions for artist">
 
+	<cfset variables.DSN = "" />
+
 	<cffunction name="init" access="public" output="false" returntype="ArtistGateway" hint="constructor">
 
-		<cfargument name="DSN" type="string" required="true" hint="datasource" />
-
-		<cfset variables.DSN = arguments.DSN />
-
 		<cfreturn this />
-
 	</cffunction>
 
+
+	<!--- setters for dependencies --->
+	<cffunction name="setDsn" returntype="void" access="public" output="false" hint="Dependency: datasource name">
+		<cfargument name="DSN" type="string" required="true"/>
+		<cfset variables.DSN = arguments.DSN />
+	</cffunction>
 
 	<cffunction name="getAllArtists" access="public" output="false" returntype="query" hint="returns all the name and images of artists">
 

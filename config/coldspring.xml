@@ -1,11 +1,42 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <beans>
-	<!-- 
-	<bean id="yourBeanName" class="fully.Qualified.Dot.Delimited.Path.To.CFC">
-		<property name="Property">
-			<value>Value</value>
+	
+	<bean id="artist" class="model.Artist">
+	</bean>
+	
+	<bean id="artistDAO" class="model.ArtistDAO">
+		<property name="dsn">
+			<value>artist</value>
+		</property>
+		<property name="artist" >
+			<ref bean = "artist" />
 		</property>
 	</bean>
-	 -->
+	
+	<bean id="artistGateway" class="model.ArtistGateway">
+		<property name="dsn">
+			<value>artist</value>
+		</property>
+	</bean>
+	
+	<bean id="artistService" class="model.ArtistService" >
+		<property name="artistDAO" >
+			<ref bean = "artistDAO" />
+		</property>
+		<property name ="artistGateway" >
+			<ref bean = "artistGateway" />
+		</property>
+	</bean>
+	
+	<bean id="paintingGateway" class="model.paintingGateway">
+		<property name="dsn" > 
+			<value>artist</value>
+		</property>
+	</bean>
+	<bean id="paintingService" class="model.PaintingService">
+		<property name="paintingGateway">
+			<ref bean="paintingGateway" />
+		</property>
+	</bean>
 </beans>

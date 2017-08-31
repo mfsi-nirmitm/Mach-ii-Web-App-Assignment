@@ -74,10 +74,12 @@
 
 	<!-- PLUGINS -->
 	<plugins>
-		<!--
-		<plugin name="yourPluginName" type="fully.Qualified.Dot.Delimited.Path.To.CFC">
+		<!-- coldspring plugin  
+		<plugin name="coldSpringPlugin" type="coldspring.machii.ColdspringPlugin">
 			<parameters>
-				<parameter name="yourParameterName" value="yourParameterValue" />
+				<parameter name="beanFactoryPropertyName" value="serviceFactory" />
+				<parameter name="configFilePropertyName" value="ColdspringConfigFile" />
+				<parameter name="configFilePathIsRelative" value="true" />
 			</parameters>
 		</plugin>
 		-->
