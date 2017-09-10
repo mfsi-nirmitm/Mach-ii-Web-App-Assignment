@@ -27,9 +27,20 @@
 	<script type="text/javascript" src="/assets/js/container-min.js"></script>
 	<script type="text/javascript" src="/assets/js/YUI.js"></script>
 	<script type="text/javascript" src="/assets/js/validation.js"></script>
+	<script type="text/javascript" src="/assets/js/makepublic.js"></script>
 
 	</head>
-	<body class="yui-skin-sam" >
+	<body class="yui-skin-sam"
+			<cfif event.isArgDefined('errorMessages') >
+				onload = "body_load_loginError()"
+			<cfelseif event.isArgDefined('signupErrorMessages') OR event.isArgDefined('errorInSignIn') >
+				onload="body_load_signupError()"
+			<cfelseif event.isArgDefined('errorInUpdate') >
+				onload="body_load_updateError()"
+			<cfelseif event.isArgDefined('addArtError')>
+				onload="body_load_addArtError()"
+			</cfif>
+	>
 		<!-- Preloader End -->
 		<div id="hs_top_wrap"> </div>
 		<!--Container-Start-->

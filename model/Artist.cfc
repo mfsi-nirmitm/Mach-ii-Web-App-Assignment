@@ -79,7 +79,7 @@
 
 	<cffunction name="setPhone" access="private" hint="Setter for Phone" output="false" returnType="void"  >
 		<cfargument name="Phone" hint="phone of the artist" required="true" type="string" />
-		<cfset variables.instance.Phone />
+		<cfset variables.instance.Phone = arguments.Phone />
 	</cffunction>
 
 	<cffunction name="getCity" access="public" hint="Getter for City" output="false" returnType="string" >

@@ -11,7 +11,7 @@
 	<cfset this.sessionManagement = true />
 	<cfset this.setClientCookies = true />
 	<cfset this.setDomainCookies = false />
-	<cfset this.sessionTimeOut = CreateTimeSpan(0,1,0,0) />
+	<cfset this.sessionTimeOut = CreateTimeSpan(0,0,20,0) />
 	<cfset this.applicationTimeOut = CreateTimeSpan(1,0,0,0) />
 
 

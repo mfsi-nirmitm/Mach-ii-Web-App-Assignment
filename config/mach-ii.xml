@@ -63,13 +63,12 @@
 	
 	<!-- EVENT-FILTERS -->
 	<event-filters>
-		<!--
-		<event-filter name="yourEventFilterName" type="fully.Qualified.Dot.Delimited.Path.To.CFC">
-			<parameters>
-				<parameter name="yourParameterName" value="yourParameterValue" />
-			</parameters>
-		</event-filter>
-		-->
+	
+		<event-filter name = "validation"    type="filters.ValidationFilter" />
+		<event-filter name = "successorfail" type="filters.SuccessFilter" />
+		<event-filter name = "uploadProfileImage" type="filters.UploadProfileImage" />
+		<event-filter name = "addPaintingFilter" type="filters.AddPainting" />
+
 	</event-filters>
 
 	<!-- PLUGINS -->
@@ -90,7 +89,6 @@
 		<event-handler event="home" access="public">
 			
 			<notify listener="ArtistListener" method="getArtistList" resultArg="qArtists" />
-			
 			<view-page name="header" />
 			<view-page name="menu" />
 			<view-page name="slider" />
@@ -112,43 +110,81 @@
 		
 		</event-handler>
 		
-		<!-- sample event handler that uses caching and the default cache (data cached for 1 hour in application scope) -->
-		<!--
-		<event-handler event="useCache" access="public">
-			<cache>
-				<notify listener="SomeListener" method="getDataForCache" resultArg="cachedData" />
-			</cache>
+		<event-handler event="logginAttempt" access="public">
+			<filter name="validation" >
+				<parameter name="validationfor" value="login" />
+			</filter>
+			<announce event="processLoginData" copyEventArgs="true" />
 		</event-handler>
-		-->
+			
+		<event-handler event="processLoginData" access="private">
+			<notify listener="ArtistListener" method="getLogin"  />
+			<announce event="ShowPortfolio" copyEventArgs="true"  />
+		</event-handler>
 		
-		<!-- sample event handler that uses message/subscriber listener notification -->
-		<!--
-		<event-handler event="messagePublisher" access="public">
-			<publish message="needStuff" />
+		<event-handler event="logoutAttempt" access="public" >
+			<notify listener="ArtistListener" method="getLogout" />
+			<redirect event="home"  />
 		</event-handler>
-		-->
+		
+		<event-handler event="signupAttempt" access="public">
+			<filter name="validation">
+				<parameter name="validationfor" value="signup" />
+			</filter>
+			<announce event="processSignupData" copyEventArgs = "true" />
+		</event-handler>
+		
+		<event-handler event="processSignupData" access="private">
+			<notify listener="ArtistListener"  method="addArtist" />
+			<announce event="successSignup" copyEventArg="true" />
+		</event-handler>
+		
+		<event-handler event="successSignup" access="private">
+			<filter	name="successorfail" >
+				<parameter name="eventname" value="signup" />
+			</filter>
+		</event-handler>
+		
+		<event-handler event="processUpdateData" access="public">
+			<notify listener="ArtistListener" method="updateArtist" />
+			<announce event="ShowPortfolio" copyEventArg="true"/>
+		</event-handler>
+		
+		<event-handler event="uploadProfileImage" access="public" >
+			<filter name="uploadProfileImage" />
+			<announce event="processProfileImage" copyEventArg="true"/>
+		</event-handler>
+		
+		<event-handler event="processProfileImage" access="private">
+			<notify listener="ArtistListener"  method="updateProfileImage" />
+			<announce event="ShowPortfolio" copyEventArg="true"/>
+		</event-handler>
+		
+		<event-handler event="addPainting" access="public">
+			<filter name="addPaintingFilter" />
+			<announce event="processPaintingData" copyEventArg="true" />
+		</event-handler>
+		
+		<event-handler event="processPaintingData" access="private">
+			<notify listener="PaintingListener" method="addpainting" />
+			<announce event="ShowPortfolio" copyEventArg="true" />
+		</event-handler>
+		
+		<event-handler event="makePaintingPublic" access="public" >
+			<notify listener="PaintingListener" method="makePublic" />
+			<announce event="home"  />
+		</event-handler>
 		
 		<event-handler event="exception" access="private">
-			
 			<view-page name="header" />
 			<view-page name="exception" />
 			<view-page name="footer" />
-			
 		</event-handler> 
 	</event-handlers>
 	
 	<!-- SUBROUTINES -->
 	<subroutines>
-		<!-- <subroutine name="layout.main">
-			<view-page name="layout.header" contentArg="layout.header"/>
-			<view-page name="layout.footer" contentArg="layout.footer"/>
-			<view-page name="layout.wrapper"/>
-		</subroutine>-->
-		
-		<!--
-		<subroutine name="yourSubroutineName">
-		</subroutine>
-		-->
+
 	</subroutines>
 	
 	<!-- PAGE-VIEWS -->

@@ -4,7 +4,8 @@
 	
 	<bean id="artist" class="model.Artist">
 	</bean>
-	
+	<bean id="painting" class="model.Painting">
+	</bean>
 	<bean id="artistDAO" class="model.ArtistDAO">
 		<property name="dsn">
 			<value>artist</value>
@@ -13,9 +14,23 @@
 			<ref bean = "artist" />
 		</property>
 	</bean>
+	<bean id="paintingDAO" class="model.PaintingDAO">
+		<property name="dsn">
+			<value>artist</value>
+		</property>
+		<property name="painting" >
+			<ref bean="painting" />
+		</property>
+	</bean>
 	
 	<bean id="artistGateway" class="model.ArtistGateway">
 		<property name="dsn">
+			<value>artist</value>
+		</property>
+	</bean>
+	
+	<bean id="paintingGateway" class="model.paintingGateway">
+		<property name="dsn" > 
 			<value>artist</value>
 		</property>
 	</bean>
@@ -27,16 +42,20 @@
 		<property name ="artistGateway" >
 			<ref bean = "artistGateway" />
 		</property>
+		<property name="artist">
+			<ref bean="artist" />
+		</property>
 	</bean>
 	
-	<bean id="paintingGateway" class="model.paintingGateway">
-		<property name="dsn" > 
-			<value>artist</value>
-		</property>
-	</bean>
 	<bean id="paintingService" class="model.PaintingService">
+		<property name="painting" >
+			<ref bean="painting" />
+		</property>
+		<property name="paintingDAO">
+			<ref bean = "paintingDAO" />
+		</property>
 		<property name="paintingGateway">
 			<ref bean="paintingGateway" />
-		</property>
+		</property>	
 	</bean>
 </beans>

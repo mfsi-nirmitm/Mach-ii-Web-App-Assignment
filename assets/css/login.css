@@ -6,21 +6,38 @@
 			}
 			.error{
 				color:#ff0000;
+				font-size : 13px;
 			}
 			.yui-skin-sam .yui-panel .bd{
 				background-color:#ffffff !important;
 				background: url(/assets/img/bg_pattern.png) #fff;
 			}
-			.form input {
+			.form input{
 				font-family: 'Cabin Sketch',cursive;
 				outline: 0;
 				background: #f2f2f2;
 				width: 100%;
 				border: 0;
-				margin: 0 0 15px;
-				padding: 20px !important;
+				margin: 0 0 5px;
+				padding: 15px !important;
 				box-sizing: border-box;
 				font-size: 14px;
+			}
+			.form_text_area{
+				font-family: 'Cabin Sketch',cursive;
+				outline: 0;
+				background: #f2f2f2;
+				width: 100%;
+				border: 0;
+				margin: 0 0 5px;
+				font-size: 14px;
+				height:auto;
+			}
+			.cancle_button{
+				background : #ff5d56 !important;
+			}
+			.cancle_button:hover{
+				background : #ff3044 !important;
 			}
 			.form .submit:hover, .form .submit:active, .form .submit:focus 
 			{
@@ -34,16 +51,18 @@
 				font-family: 'Cabin Sketch',cursive;
 				color : #ffffff ;
 			}
+			
 			.message{
 				font-size:15px !important;
 			}
 			.message a{
 				color : #8DC26F !important;
+				cursor:pointer;
 			}
 			
 			.yui-skin-sam .yui-panel .hd{
 				background : #f2f2f2 !important;
-				padding : 10px !important;
+				padding-left : 15px !important;
 			}
 
 
@@ -74,4 +93,54 @@
 			#panel-2,
 			#panel-3 {
 				text-align: left;
+			}
+			.logo_head{
+				width:40% ;
+				float :left;
+			}
+			.login_session{
+				width:40%;
+				float:right;
+				text-align:right;
+				margin-top:30px;
+			}
+			.right_text{
+				text-align:right;
+			}
+			
+			/* upload images */
+			/* .upload_image input[type=file] {
+			    cursor: inherit;
+			    display: block;
+			    font-size: 999px;
+			    filter: alpha(opacity=0);
+			    min-height: 100%;
+			    min-width: 100%;
+			    opacity: 0;
+			    position: absolute;
+			    right: 0;
+			    text-align: right;
+			    top: 0;
+			}*/
+			.upload_profileimage_form .file{
+				font-family: 'Cabin Sketch',cursive;
+				outline: 0;
+				width: 100%;
+				border: 0;
+				margin: 0 0 5px;
+				box-sizing: border-box;
+				font-size: 15px;
+			}
+			.upload_profileimage_form .submit{
+				padding:10px !important;
+				background : #4CAF50;
+				font-size: 20px;
+				font-family: 'Cabin Sketch',cursive;
+				color : #ffffff ;
+				border:0;
+				width:100%;
+			}
+			.upload_profileimage_form .submit:hover, .upload_profileimage_form .submit:active, .upload_profileimage_form .submit:focus 
+			{
+				background: #43A047;
 			}

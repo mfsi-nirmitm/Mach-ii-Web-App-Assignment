@@ -25,6 +25,10 @@
 		margin-left:26px!important
 	}
 }
+.image_size{
+	height:170px;
+	width:166px;
+}
 ul
 {
 	margin-left:0;
@@ -1177,6 +1181,30 @@ ul.hs_service_menu li a
 }
 .signin{
 	cursor:pointer;
+}
+.underlay{
+	background:url(/assets/img/bg_pattern.png) #fff ;
+	opacity : 1 !important;
+}
+.bd{
+	border:none !important;
+}
+.hd{
+	border:none !important;
+}
+.ft .yui-skin-sam .yui-panel{
+	border:none !important;
+}
+.edit_profile_form{
+	width:45%;
+	float:left;
+	padding:0px 10px 0px 10px;
+}
+.clear_both{
+	clear:both;
+}
+.right{
+	float:right !important;
 }
 @media only screen and (min-width:980px) and (max-width:1200px)
 {

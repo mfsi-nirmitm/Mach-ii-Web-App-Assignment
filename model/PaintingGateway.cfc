@@ -33,4 +33,15 @@
 		<cfreturn qPaintings />
 	</cffunction>
 
+	<cffunction name="makePublic" access="public" output="false" returnType="void" hint="make painting public or private"  >
+		<cfargument name="pictureID" type="numeric" required="true" />
+		<cfargument name="action" type="numeric" required="true" />
+
+		<cfquery name="qmakePublic" datasource="#variables.DSN#" >
+			UPDATE PAINTINGS
+			SET ISPUBLIC = <cfqueryparam value = "#arguments.action#" cfsqltype = "cf_sql_numeric" />
+			WHERE  PAINTINGID  = <cfqueryparam value = "#arguments.pictureID#" cfsqltype = "cf_sql_numeric" />
+		</cfquery>
+	</cffunction>
+
 </cfcomponent>

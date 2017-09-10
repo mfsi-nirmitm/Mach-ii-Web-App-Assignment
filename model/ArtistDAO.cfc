@@ -71,4 +71,41 @@
 
 	</cffunction>
 
+	<cffunction name="addArtist" access="public" output="false" returnType="void" hint="adding the details of artist" >
+		<cfargument name="artist" type="model.Artist" required="true" />
+
+		<cfquery name="qAddArtist" datasource="#variables.DSN#">
+			INSERT INTO ARTISTS
+			VALUES
+			(
+				<cfqueryparam value="#arguments.artist.getName()#" cfsqltype="cf_sql_varchar"/> ,
+				<cfqueryparam value="#arguments.artist.getEmail()#" cfsqltype="cf_sql_varchar" />,
+				<cfqueryparam value="#arguments.artist.getPhone()#" cfsqltype="cf_sql_varchar"/>,
+				<cfqueryparam value="#arguments.artist.getCity()#" cfsqltype="cf_sql_varchar" /> ,
+				<cfqueryparam value="#arguments.artist.getCountry()#" cfsqltype="cf_sql_varchar" />,
+				<cfqueryparam value="#arguments.artist.getUserName()#" cfsqltype="cf_sql_varchar" />,
+				<cfqueryparam value="#arguments.artist.getPassword()#" cfsqltype="cf_sql_varchar" /> ,
+				<cfqueryparam value="#arguments.artist.getAbout()#" cfsqltype="cf_sql_varchar" /> ,
+				<cfqueryparam value="#arguments.artist.getProfileImage()#" cfsqltype="cf_sql_varchar" />
+			)
+		</cfquery>
+	</cffunction>
+
+	<cffunction name="updateArtist" access="public" output="false" returnType="void" hint="update the details of artist">
+		<cfargument name="artist" type="model.Artist" required="true" hint="artist bean" />
+
+		<cfquery name="qUpdateArtist" datasource="#variables.DSN#" >
+			UPDATE ARTISTS SET
+			NAME     = <cfqueryparam value="#arguments.artist.getName()#" cfsqltype="cf_sql_varchar"/>,
+			EMAIL    = <cfqueryparam value="#arguments.artist.getEmail()#" cfsqltype="cf_sql_varchar" />,
+			PHONE    = <cfqueryparam value="#arguments.artist.getPhone()#" cfsqltype="cf_sql_varchar"/>,
+			CITY     = <cfqueryparam value="#arguments.artist.getCity()#" cfsqltype="cf_sql_varchar" />,
+			COUNTRY  = <cfqueryparam value="#arguments.artist.getCountry()#" cfsqltype="cf_sql_varchar" />,
+			USERNAME = <cfqueryparam value="#arguments.artist.getUserName()#" cfsqltype="cf_sql_varchar" />,
+			PASSWORD = <cfqueryparam value="#arguments.artist.getPassword()#" cfsqltype="cf_sql_varchar" /> ,
+			ABOUT    = <cfqueryparam value="#arguments.artist.getAbout()#" cfsqltype="cf_sql_varchar" />
+			WHERE ARTISTID = <cfqueryparam value="#arguments.artist.getArtistID()#" cfsqltype="cf_sql_numeric" />
+		</cfquery>
+	</cffunction>
+
 </cfcomponent>

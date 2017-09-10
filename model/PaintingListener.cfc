@@ -17,4 +17,13 @@
 		<cfreturn variables.paintingService.getAllPaintings( arguments.event.getArg("ArtistID")) />
 	</cffunction>
 
+	<cffunction name="addpainting" access="public" output="false" returnType="void" hint="adding painting details" >
+		<cfargument name="event" type="MachII.framework.Event" required="true" />
+		<cfset variables.paintingService.addPainting(Int(Trim(arguments.event.getArg("ArtistID"))),Trim(arguments.event.getArg("paintingName")),Trim(arguments.event.getArg('paintingImage')) ) />
+	</cffunction>
+
+	<cffunction name="makePublic" access="public" output="false" returnType="void" hint="make painting public or private">
+		<cfargument name="event" type="MachII.framework.Event" required="true" />
+		<cfset variables.paintingService.makePublic( Int(arguments.event.getArg('picId')),Int(arguments.event.getArg('action')) ) />
+	</cffunction>
 </cfcomponent>

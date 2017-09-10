@@ -15,7 +15,7 @@
 				<a href="/index.cfm?event=ShowPortfolio&ArtistID=#variables.artistList.ARTISTID#">
 	        		<div class="span12 hs_port_thumb center">
 	          			<div class="span12 hs_latest">
-		          			<img src="#variables.artistList.PROFILEIMAGE#" alt="latest_Portfolio"/>
+		          			<img class="image_size" src="#variables.artistList.PROFILEIMAGE#" height="170px" width="166px" alt="latest_Portfolio"/>
 						</div>
 	        		</div>
         		</a>
