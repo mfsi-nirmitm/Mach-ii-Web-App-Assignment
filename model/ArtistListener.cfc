@@ -37,7 +37,7 @@
 	<cffunction name = "getLogin" access="public" output="false" returnType="void" hint="autherizing the login credentials" >
 		<cfargument name = "event" type="MachII.framework.Event" required="true" />
 
-		<cfset  var isLogin = variables.artistService.getLogin(Trim(arguments.event.getArg('login_user')), Trim(arguments.event.getArg('login_password')))  />
+		<cfset  var isLogin = variables.artistService.getLogin(Trim(arguments.event.getArg('login_user')), Hash(Trim(arguments.event.getArg('login_password'))))  />
 
 		<cfif NOT isLogin >
 			<cfset var errorMessages = {} />
@@ -83,7 +83,7 @@
 									Trim(arguments.event.getArg('signup_city')),
 									Trim(arguments.event.getArg('signup_country')),
 									Trim(arguments.event.getArg('signup_username')),
-									Trim(arguments.event.getArg('signup_password')) ) />
+									Hash(Trim(arguments.event.getArg('signup_password'))) ) />
 			<cfif arguments.event.isArgDefined('errorInSignIn')  >
 				<cfset arguments.event.removeArg('errorInSignIn') />
 			</cfif>
@@ -117,7 +117,7 @@
 															Trim(arguments.event.getArg('edit_city')),
 															Trim(arguments.event.getArg('edit_country')),
 															Trim(arguments.event.getArg('edit_username')),
-															Trim(arguments.event.getArg('edit_password')),
+															Hash(Trim(arguments.event.getArg('edit_password'))),
 															Trim(arguments.event.getArg('edit_about'))
 												) />
 			<cfif arguments.event.isArgDefined('errorInUpdate')  >
