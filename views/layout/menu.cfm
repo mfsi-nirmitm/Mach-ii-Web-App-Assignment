@@ -8,7 +8,7 @@
 		</div>
 		<!-- Desktop-Main-Menu-Start  -->
 		<cfif structKeyExists(session,'loggedIn')>
-			<div class = "login_session" ><cfoutput> <a>#session.loggedIn['artistName']#</a> | <a href="/index.cfm?event=logoutAttempt">Logout</a></cfoutput></div>
+			<div class = "login_session" ><cfoutput> <a href="/index.cfm?event=ShowPortfolio">#session.loggedIn['artistName']#</a> | <a href="/index.cfm?event=logoutAttempt">Logout</a></cfoutput></div>
 	  	<cfelse>
       		<div class="span6 hs_see_more offset5"> <a id="show-dialog-2" class="hs_more_btn signin"> Sign In </a> </div>
       	</cfif>
