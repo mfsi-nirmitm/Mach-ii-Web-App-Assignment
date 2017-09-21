@@ -76,15 +76,18 @@
 		</cfif>
 
 		<cfif validValues >
-			<cfset variables.artistService.addArtist(
-									Trim(arguments.event.getArg('signup_name')),
-									Trim(arguments.event.getArg('signup_email')),
-									Trim(arguments.event.getArg('signup_number')),
-									Trim(arguments.event.getArg('signup_city')),
-									Trim(arguments.event.getArg('signup_country')),
-									Trim(arguments.event.getArg('signup_username')),
-									Hash(Trim(arguments.event.getArg('signup_password'))) ) />
-			<cfif arguments.event.isArgDefined('errorInSignIn')  >
+			<cfset validValues = variables.artistService.addArtist(
+									artistName    = Trim(arguments.event.getArg('signup_name')),
+									artistEmail   = Trim(arguments.event.getArg('signup_email')),
+									artistPhone   = Trim(arguments.event.getArg('signup_number')),
+									artistCity    = Trim(arguments.event.getArg('signup_city')),
+									artistCountry = Trim(arguments.event.getArg('signup_country')),
+									artistUsername= Trim(arguments.event.getArg('signup_username')),
+									artistPassword= Hash(Trim(arguments.event.getArg('signup_password'))) ) />
+			<cfif NOT validValues >
+				<cfset errorInSignIn['signup_username_error'] = "Database is not connected." />
+				<cfset arguments.event.setArg('errorInSignIn',errorInSignIn) />
+			<cfelseif arguments.event.isArgDefined('errorInSignIn')  >
 				<cfset arguments.event.removeArg('errorInSignIn') />
 			</cfif>
 		<cfelse>
@@ -110,7 +113,7 @@
 			<cfset errorInUpdate['edit_username_error'] = "" />
 		</cfif>
 		<cfif validValues >
-			<cfset variables.artistService.updateArtist(	Int(Trim(arguments.event.getArg('ArtistID'))),
+			<cfset validValues = variables.artistService.updateArtist(	Int(Trim(arguments.event.getArg('ArtistID'))),
 															Trim(arguments.event.getArg('edit_name')),
 															Trim(arguments.event.getArg('edit_email')),
 															Trim(arguments.event.getArg('edit_number')),
@@ -120,7 +123,10 @@
 															Hash(Trim(arguments.event.getArg('edit_password'))),
 															Trim(arguments.event.getArg('edit_about'))
 												) />
-			<cfif arguments.event.isArgDefined('errorInUpdate')  >
+			<cfif NOT validValues>
+				<cfset errorInUpdate['edit_username_error'] = "Database Not connected." />
+				<cfset arguments.event.setArg('errorInUpdate',errorInUpdate) />
+			<cfelseif arguments.event.isArgDefined('errorInUpdate')  >
 				<cfset arguments.event.removeArg('errorInUpdate') />
 			</cfif>
 		<cfelse>

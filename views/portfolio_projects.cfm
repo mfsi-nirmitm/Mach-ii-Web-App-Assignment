@@ -12,21 +12,23 @@
     </cfif>
 	<div class="span12">
 		<cfoutput query="variables.qPainting">
-		<div class="span4 hs_main_latest">
-			<div class="span12 center">
-				<div class="span12 hs_latest">
-					<img class="image_size" src="#variables.qPainting.IMAGEURL#" alt="Art Gallery"/>
+			<cfif ( (!structKeyExists(session,'loggedIn')) AND variables.qPainting.ISPUBLIC EQ 1 ) OR ( structKeyExists(session,'loggedIn') AND variables.qPainting.ISPUBLIC EQ 1 ) OR ( structKeyExists(session,'loggedIn') AND variables.qPainting.ISPUBLIC EQ 0 AND session.loggedIn['artistID'] EQ event.getArg('ArtistID') )  >
+				<div class="span4 hs_main_latest">
+					<div class="span12 center">
+						<div class="span12 hs_latest">
+							<img class="image_size" src="#variables.qPainting.IMAGEURL#" alt="Art Gallery"/>
+						</div>
+			        </div>
+		       		<div class="span12 text-center">
+						<p>
+							#variables.qPainting.PAINTINGNAME#
+							<cfif structKeyExists(session,'loggedIn') AND session.loggedIn['artistID'] EQ event.getArg('ArtistID') >
+							<span class="float_right"><input type="checkbox"  name="public" value="1" id="#variables.qPainting.PAINTINGID#" <cfif variables.qPainting.ISPUBLIC EQ 1 > checked="checked" </cfif> onclick="makepublic(this)" ></span>
+							</cfif>
+						</p>
+					</div>
 				</div>
-	        </div>
-       		<div class="span12 text-center">
-				<p>
-					#variables.qPainting.PAINTINGNAME#
-					<cfif structKeyExists(session,'loggedIn') AND session.loggedIn['artistID'] EQ event.getArg('ArtistID') >
-					<span class="float_right"><input type="checkbox"  name="public" value="1" id="#variables.qPainting.PAINTINGID#" <cfif variables.qPainting.ISPUBLIC EQ 1 > checked="checked" </cfif> onclick="makepublic(this)" ></span>
-					</cfif>
-				</p>
-			</div>
-		</div>
+			</cfif>
 		</cfoutput>
     </div>
 

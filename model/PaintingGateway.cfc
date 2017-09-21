@@ -22,14 +22,19 @@
 		<cfargument name="artistID" type="numeric" required="true" hint="ARTISTID"  />
 
 		<cfset var qPaintings = "" />
-		<cfquery name = "qPaintings" datasource="#variables.DSN#">
-			SELECT
-				PAINTINGID , PAINTINGNAME , IMAGEURL , ISPUBLIC
-			FROM
-				PAINTINGS
-			WHERE
-				ARTISTID = <cfqueryparam value = "#arguments.artistID#" cfsqltype = "cf_sql_numeric" />
-		</cfquery>
+		<cftry>
+			<cfquery name = "qPaintings" datasource="#variables.DSN#">
+				SELECT
+					PAINTINGID , PAINTINGNAME , IMAGEURL , ISPUBLIC
+				FROM
+					PAINTINGS
+				WHERE
+					ARTISTID = <cfqueryparam value = "#arguments.artistID#" cfsqltype = "cf_sql_numeric" />
+			</cfquery>
+		<cfcatch type="any">
+			<cflog file="Artist" text = "#error.type#" type = "error" >
+		</cfcatch>
+		</cftry>
 		<cfreturn qPaintings />
 	</cffunction>
 
@@ -37,11 +42,16 @@
 		<cfargument name="pictureID" type="numeric" required="true" />
 		<cfargument name="action" type="numeric" required="true" />
 
-		<cfquery name="qmakePublic" datasource="#variables.DSN#" >
-			UPDATE PAINTINGS
-			SET ISPUBLIC = <cfqueryparam value = "#arguments.action#" cfsqltype = "cf_sql_numeric" />
-			WHERE  PAINTINGID  = <cfqueryparam value = "#arguments.pictureID#" cfsqltype = "cf_sql_numeric" />
-		</cfquery>
+		<cftry>
+			<cfquery name="qmakePublic" datasource="#variables.DSN#" >
+				UPDATE PAINTINGS
+				SET ISPUBLIC = <cfqueryparam value = "#arguments.action#" cfsqltype = "cf_sql_numeric" />
+				WHERE  PAINTINGID  = <cfqueryparam value = "#arguments.pictureID#" cfsqltype = "cf_sql_numeric" />
+			</cfquery>
+		<cfcatch type="any">
+			<cflog file="Artist" text = "#error.type#" type = "error" >
+		</cfcatch>
+		</cftry>
 	</cffunction>
 
 </cfcomponent>

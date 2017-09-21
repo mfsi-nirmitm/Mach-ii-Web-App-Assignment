@@ -24,14 +24,17 @@
 	<cffunction name="getAllArtists" access="public" output="false" returntype="query" hint="returns all the name and images of artists">
 
 		<cfset var qArtists = "" />
-
-		<cfquery name="qArtists" datasource="#variables.DSN#">
-			SELECT
-				ARTISTID ,NAME , PROFILEIMAGE
-			FROM
-				ARTISTS
-		</cfquery>
-
+		<cftry>
+			<cfquery name="qArtists" datasource="#variables.DSN#">
+				SELECT
+					ARTISTID ,NAME , PROFILEIMAGE
+				FROM
+					ARTISTS
+			</cfquery>
+		<cfcatch type="any" >
+			<cflog file="Artist" text = "#error.type#" type = "error" >
+		</cfcatch>
+		</cftry>
 		<cfreturn qArtists />
 	</cffunction>
 
@@ -41,14 +44,20 @@
 
 		<cfset var isLogin = false />
 
-		<cfquery name = "qLogin" datasource="#variables.DSN#" >
-			SELECT ARTISTID , NAME
-			FROM ARTISTS
-			WHERE PASSWORD = <cfqueryparam value = "#arguments.login_password#" cfsqltype = "cf_sql_varchar" />
-			AND	  EMAIL = <cfqueryparam value ="#arguments.login_user#" cfsqltype="cf_sql_varchar" />
-			OR	  USERNAME = <cfqueryparam value = "#arguments.login_user#" cfsqltype="cf_sql_varchar" />
-		</cfquery>
-
+		<cftry>
+			<cfquery name = "qLogin" datasource="#variables.DSN#" >
+				SELECT ARTISTID , NAME
+				FROM ARTISTS
+				WHERE PASSWORD = <cfqueryparam value = "#arguments.login_password#" cfsqltype = "cf_sql_varchar" />
+				AND	  EMAIL = <cfqueryparam value ="#arguments.login_user#" cfsqltype="cf_sql_varchar" />
+				OR	  USERNAME = <cfqueryparam value = "#arguments.login_user#" cfsqltype="cf_sql_varchar" />
+			</cfquery>
+		<cfcatch type="any">
+			<cfset isLogin = false />
+			<cflog file="Artist" text = "#error.type#" type = "error" >
+			<cfreturn isLogin />
+		</cfcatch>
+		</cftry>
 		<cfif qLogin.recordCount EQ 1 >
 			<cfif structKeyExists(session,'loggedIn')>
 				<cfset structdelete(session,'loggedIn') />
@@ -65,11 +74,20 @@
 		<cfargument name="artistEmail" type="string" required="true" hint="email of the artist" />
 
 		<cfset var hasEmail = false />
-		<cfquery name="qhasEmail" datasource="#variables.DSN#">
-			SELECT *
-			FROM ARTISTS
-			WHERE EMAIL = <cfqueryparam value="#arguments.artistEmail#" cfsqltype="cf_sql_varchar" />
-		</cfquery>
+
+		<cftry>
+			<cfquery name="qhasEmail" datasource="#variables.DSN#">
+				SELECT *
+				FROM ARTISTS
+				WHERE EMAIL = <cfqueryparam value="#arguments.artistEmail#" cfsqltype="cf_sql_varchar" />
+			</cfquery>
+
+		<cfcatch type="any">
+			<cflog file="Artist" text = "#error.type#" type = "error" >
+			<cfreturn false />
+		</cfcatch>
+
+		</cftry>
 
 		<cfif qhasEmail.recordCount EQ 1 >
 			<cfset hasEmail = true />
@@ -82,12 +100,17 @@
 		<cfargument name="artistUsername" type="string" required="true" hint="username of the artist" />
 		<cfset var hasUsername= false />
 
-		<cfquery name="qhasUsername" datasource="#variables.DSN#">
-			SELECT *
-			FROM ARTISTS
-			WHERE USERNAME = <cfqueryparam value="#arguments.artistUsername#" cfsqltype="cf_sql_varchar" />
-		</cfquery>
-
+		<cftry>
+			<cfquery name="qhasUsername" datasource="#variables.DSN#">
+				SELECT *
+				FROM ARTISTS
+				WHERE USERNAME = <cfqueryparam value="#arguments.artistUsername#" cfsqltype="cf_sql_varchar" />
+			</cfquery>
+		<cfcatch type="any">
+			<cflog file="Artist" text = "#error.type#" type = "error" >
+			<cfreturn false />
+		</cfcatch>
+		</cftry>
 		<cfif qhasUsername.recordCount EQ 1 >
 			<cfset hasUsername = true />
 		</cfif>
@@ -101,13 +124,18 @@
 
 		<cfset var hasUsername = false />
 
-		<cfquery name="qhasOtherUsername" datasource="#variables.DSN#" >
-			SELECT *
-			FROM ARTISTS
-			WHERE USERNAME = <cfqueryparam value="#arguments.artistUsername#" cfsqltype="cf_sql_varchar" />
-			AND ARTISTID != <cfqueryparam value="#arguments.artistID#" cfsqltype="cf_sql_numeric" />
-		</cfquery>
-
+		<cftry>
+			<cfquery name="qhasOtherUsername" datasource="#variables.DSN#" >
+				SELECT *
+				FROM ARTISTS
+				WHERE USERNAME = <cfqueryparam value="#arguments.artistUsername#" cfsqltype="cf_sql_varchar" />
+				AND ARTISTID != <cfqueryparam value="#arguments.artistID#" cfsqltype="cf_sql_numeric" />
+			</cfquery>
+		<cfcatch type="any">
+			<cflog file="Artist" text = "#error.type#" type = "error" >
+			<cfreturn false />
+		</cfcatch>
+		</cftry>
 		<cfif qhasOtherUsername.recordCount GT 0 >
 			<cfset hasUsername = true />
 		</cfif>
@@ -120,13 +148,19 @@
 		<cfargument name="artistEmail" type="string" required="true" hint="email of artist" />
 
 		<cfset var hasEmail = false />
-		<cfdump var = '#arguments.artistID#' />
-		<cfquery name="qhasOtherEmail" datasource="#variables.DSN#">
-			SELECT *
-			FROM ARTISTS
-			WHERE EMAIL = <cfqueryparam value="#arguments.artistEmail#" cfsqltype="cf_sql_varchar" />
-			AND ARTISTID != <cfqueryparam value="#arguments.artistID#" cfsqltype="cf_sql_numeric" />
-		</cfquery>
+
+		<cftry>
+			<cfquery name="qhasOtherEmail" datasource="#variables.DSN#">
+				SELECT *
+				FROM ARTISTS
+				WHERE EMAIL = <cfqueryparam value="#arguments.artistEmail#" cfsqltype="cf_sql_varchar" />
+				AND ARTISTID != <cfqueryparam value="#arguments.artistID#" cfsqltype="cf_sql_numeric" />
+			</cfquery>
+		<cfcatch type="any">
+			<cflog file="Artist" text = "#error.type#" type = "error" >
+			<cfreturn true />
+		</cfcatch>
+		</cftry>
 
 		<cfif qhasOtherEmail.recordCount GT 0 >
 			<cfset hasEmail = true />
@@ -139,10 +173,15 @@
 		<cfargument name="artistID" type="numeric" required="true" hint="i'd of artist" />
 		<cfargument name="artistProfileImage" type="string" required="true" hint="profile image of artist" />
 
-		<cfquery name="qProfileImage" datasource="#variables.DSN#">
-			UPDATE ARTISTS
-			SET PROFILEIMAGE = <cfqueryparam value="#arguments.artistProfileImage#" cfsqltype="cf_sql_varchar" />
-			WHERE ARTISTID = <cfqueryparam value="#arguments.artistID#" cfsqltype="cf_sql_numeric" />
-		</cfquery>
+		<cftry>
+			<cfquery name="qProfileImage" datasource="#variables.DSN#">
+				UPDATE ARTISTS
+				SET PROFILEIMAGE = <cfqueryparam value="#arguments.artistProfileImage#" cfsqltype="cf_sql_varchar" />
+				WHERE ARTISTID = <cfqueryparam value="#arguments.artistID#" cfsqltype="cf_sql_numeric" />
+			</cfquery>
+		<cfcatch type="any">
+			<cflog file="Artist" text = "#error.type#" type = "error" >
+		</cfcatch>
+		</cftry>
 	</cffunction>
 </cfcomponent>

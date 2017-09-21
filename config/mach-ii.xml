@@ -45,9 +45,8 @@
 
 	<!-- LISTENERS -->
 	<listeners>
-		
-		<listener name="ArtistListener" type="model.ArtistListener" />
-		<listener name="PaintingListener" type="model.PaintingListener" />
+		<listener name="ArtistListener" type="listeners.ArtistListener" />
+		<listener name="PaintingListener" type="listeners.PaintingListener" />
 	</listeners>
 	
 	<!-- MESSAGE SUBSCRIBERS -->
@@ -89,8 +88,7 @@
 		<event-handler event="home" access="public">
 			
 			<notify listener="ArtistListener" method="getArtistList" resultArg="qArtists" />
-			<view-page name="header" />
-			<view-page name="menu" />
+			<execute subroutine="top"/>
 			<view-page name="slider" />
 			<view-page name="home" />
 			<view-page name="footer" />
@@ -102,8 +100,7 @@
 			<notify listener="ArtistListener" method="getArtistDetail" resultArg="artistBean" />
 			<notify listener="PaintingListener" method="getPaintingList" resultArg="qPainting" />
 			
-			<view-page name="header" />
-			<view-page name="menu" />
+			<execute subroutine="top"/>
 			<view-page name="portfolio_profile" />
 			<view-page name="portfolio_projects" />
 			<view-page name="footer" />
@@ -184,7 +181,10 @@
 	
 	<!-- SUBROUTINES -->
 	<subroutines>
-
+		<subroutine name="top">
+			<view-page name="header" />
+			<view-page name="menu" />
+		</subroutine>
 	</subroutines>
 	
 	<!-- PAGE-VIEWS -->

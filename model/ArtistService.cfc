@@ -61,7 +61,7 @@
 		<cfreturn variables.artistGateway.isUsernameExists(arguments.artistUsername) />
 	</cffunction>
 
-	<cffunction name="addArtist" access="public" output="false" returnType="void" hint="adding artist details">
+	<cffunction name="addArtist" access="public" output="false" returnType="boolean" hint="adding artist details">
 		<cfargument name="artistName" type="string" required="true" hint="name of the artist" />
 		<cfargument name="artistEmail" type="string" required="true" hint="name of the artist" />
 		<cfargument name="artistPhone" type="string" required="true" hint="phone of the artist" />
@@ -72,18 +72,17 @@
 		<cfargument name="artistAbout" type="string" required="false" hint="about the artist" default="No Details available." />
 		<cfargument name="artistProfileImage" type="string" required="false" hint="image of the artist" default="/assets/artist/0.jpg" />
 
-		<cfset variables.artist.init(		Name = arguments.artistName ,
-											Email = arguments.artistEmail ,
-											Phone = arguments.artistPhone ,
-											City = arguments.artistCity ,
-											Country = arguments.artistCountry ,
-											UserName = arguments.artistUsername ,
-											Password = arguments.artistPassword ,
-											About = arguments.artistAbout ,
-											ProfileImage = arguments.artistProfileImage
-										) />
-
-		<cfset variables.artistDAO.addArtist(variables.artist) />
+		<cfreturn variables.artistDAO.addArtist(
+												artistName = arguments.artistName ,
+												artistEmail= arguments.artistEmail ,
+												artistPhone = arguments.artistPhone ,
+												artistCity  = arguments.artistCity ,
+												artistCountry = arguments.artistCountry ,
+												artistUsername= arguments.artistUsername ,
+												artistPassword = arguments.artistPassword ,
+												artistAbout = arguments.artistAbout ,
+												artistProfileImage =  arguments.artistProfileImage
+											) />
 
 	</cffunction>
 
@@ -99,7 +98,7 @@
 		<cfreturn variables.artistGateway.isEmailOfOtherArtist(arguments.artistID,arguments.artistEmail) />
 	</cffunction>
 
-	<cffunction name="updateArtist" access="public" output="false" returnType="void" hint="updating the artist details" >
+	<cffunction name="updateArtist" access="public" output="false" returnType="boolean" hint="updating the artist details" >
 		<cfargument name="artistID" type="numeric" required="true" hint="id of artist" />
 		<cfargument name="artistName" type="string" required="true" hint="name of the artist" />
 		<cfargument name="artistEmail" type="string" required="true" hint="email of the artist" />
@@ -109,20 +108,20 @@
 		<cfargument name="artistUsername" type="string" required="true" hint="username of the artist" />
 		<cfargument name="artistPassword" type="string" required="true" hint="password of the artist" />
 		<cfargument name="artistAbout" type="string" required="true" hint="details of the artist" />
-		<cfargument name="artistProfileImage" type="string" required="false" hint="image of the artist" default="/assets/artist/0.jpg" />
+		<cfargument name="artistProfileImage" type="string" required="false" hint="profileimage of the artist" default="/assets/artist/0.jpg" />
 
-		<cfset variables.artist.init( 		ArtistID = arguments.artistID,
-											Name = arguments.artistName,
-											Email = arguments.artistEmail ,
-											Phone = arguments.artistPhone ,
-											City = arguments.artistCity ,
-											Country = arguments.artistCountry ,
-											UserName = arguments.artistUsername ,
-											Password = arguments.artistPassword ,
-											About = arguments.artistAbout ,
-											ProfileImage = arguments.artistProfileImage
-									) />
-		<cfset variables.artistDAO.updateArtist(variables.artist) />
+		<cfreturn  variables.artistDAO.updateArtist(
+													artistID = arguments.artistID ,
+													artistName = arguments.artistName ,
+													artistEmail = arguments.artistEmail ,
+													artistPhone = arguments.artistPhone ,
+													artistCity = arguments.artistCity ,
+													artistCountry = arguments.artistCountry ,
+													artistUsername = arguments.artistUsername ,
+													artistPassword = arguments.artistPassword ,
+													artistAbout = arguments.artistAbout
+												) />
+
 	</cffunction>
 
 	<cffunction name="updateProfileImage" access="public" output="false" returnType="void" hint="updating the profile image of artist">

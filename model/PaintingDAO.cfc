@@ -25,19 +25,29 @@
 	</cffunction>
 
 	<!--- DAO methods --->
-	<cffunction name="addPainting" returnType="void" access="public" output="false" hint="Dependency : datasource name"  >
-		<cfargument name="Painting" type="model.Painting" required="true" />
 
-		<cfquery name="qaddPainting" datasource="#variables.DSN#" >
-			INSERT INTO PAINTINGS
-			VALUES
-			(
-				<cfqueryparam value="#arguments.Painting.getArtistID()#" cfsqltype="cf_sql_numeric" /> ,
-				<cfqueryparam value="#arguments.Painting.getPaintingName()#" cfsqltype="cf_sql_varchar"> ,
-				<cfqueryparam value="#arguments.Painting.getImageUrl()#" cfsqltype="cf_sql_varchar"> ,
-				<cfqueryparam value="#arguments.Painting.getIsPublic()#" cfsqltype="cf_sql_bit" >
-			)
-		</cfquery>
+	<cffunction name="addPainting" returntype="void" access="public" output="false" hint="adding painting">
+		<cfargument name="artistID" type="numeric" required="true" />
+		<cfargument name="paintingName" type="string" required="true" />
+		<cfargument name="imageUrl" type="string" required="true" />
+		<cfargument name="isPublic" type="numeric" default="0" required="true" />
+
+		<cftry>
+			<cfquery name="qaddPainting" datasource="#variables.DSN#" >
+				INSERT INTO PAINTINGS
+				VALUES
+				(
+					<cfqueryparam value="#arguments.artistID#" cfsqltype="cf_sql_numeric" /> ,
+					<cfqueryparam value="#arguments.paintingName#" cfsqltype="cf_sql_varchar" /> ,
+					<cfqueryparam value="#arguments.imageUrl#" cfsqltype="cf_sql_varchar" /> ,
+					<cfqueryparam value="#arguments.isPublic#" cfsqltype="cf_sql_bit" />
+				)
+			</cfquery>
+		<cfcatch type="any">
+			<cflog file="Artist" text = "#error.type#" type = "error" >
+		</cfcatch>
+		</cftry>
+
 	</cffunction>
 
 </cfcomponent>

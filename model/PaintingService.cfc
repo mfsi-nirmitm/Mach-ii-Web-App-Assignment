@@ -40,14 +40,13 @@
 		<cfargument name="imageUrl" type="string" required="true" />
 		<cfargument name="isPublic" type="numeric" default="0" required="false" />
 
-		<cfset variables.painting.init(
-									ArtistID = arguments.artistID ,
-									PaintingName = arguments.paintingName ,
-									ImageUrl = arguments.imageUrl ,
-									IsPublic = arguments.isPublic
-							) />
+		<cfset variables.paintingDAO.addPainting(
+										artistID = arguments.artistID ,
+										paintingName = arguments.paintingName ,
+										imageUrl = arguments.imageUrl ,
+										isPublic = arguments.isPublic
+									) />
 
-		<cfset variables.paintingDAO.addPainting(variables.painting) />
 	</cffunction>
 
 	<cffunction name="makePublic" access="public" output="false" returnType="void" hint="make painting public of private" >
